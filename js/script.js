@@ -56,62 +56,73 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 2. Hero Background Slideshow
-  // Enhanced Hero Background Slideshow
-document.addEventListener('DOMContentLoaded', function() {
-  const heroBg = document.querySelector('.hero-bg');
+// Hero Typing Animation
+const typedText = document.getElementById('typed-text');
+if (typedText) {
+  const text = "Welcome To NEDITS Edition";
+  let index = 0;
+  let isDeleting = false;
+  let typingSpeed = 150;
+  let pauseDuration = 2000;
   
-  if (heroBg) {
-    const heroImages = [
-      'images/hero-bg1.jpg',
-      'images/hero-bg2.jpg',
-      'images/hero-bg3.jpg',
-      'images/hero-bg4.jpg',
-      'images/hero-bg5.jpg',
-      'images/hero-bg6.jpg'
-    ];
+  function typeWriter() {
+    const currentText = text.substring(0, index);
+    typedText.textContent = currentText;
     
-    let currentIndex = 0;
+    if (!isDeleting && index === text.length) {
+      isDeleting = true;
+      setTimeout(typeWriter, pauseDuration);
+      return;
+    }
     
-    // Preload images
-    heroImages.forEach(img => {
-      const image = new Image();
-      image.src = img;
-    });
+    if (isDeleting && index === 0) {
+      isDeleting = false;
+      setTimeout(typeWriter, typingSpeed);
+      return;
+    }
     
-    function changeBackground() {
-      currentIndex = (currentIndex + 1) % heroImages.length;
+    index = isDeleting ? index - 1 : index + 1;
+    setTimeout(typeWriter, isDeleting ? typingSpeed / 2 : typingSpeed);
+  }
+  
+  // Start typing animation
+  setTimeout(typeWriter, 1000);
+}
+
+// Hero Background Slideshow
+const hero = document.querySelector('.hero');
+if (hero) {
+  let currentBg = 1;
+  const maxAttempts = 15; // Maximum number of images to check
+  
+  function changeBackground() {
+    let nextBg = currentBg + 1;
+    let attempts = 0;
+    
+    function tryImage(bgNum) {
+      attempts++;
+      const img = new Image();
+      img.src = `images/bg-hero/${bgNum}.jpg`;
       
-      // Create new image element
-      const nextImage = new Image();
-      nextImage.src = heroImages[currentIndex];
-      nextImage.onload = () => {
-        // Apply new background
-        heroBg.style.opacity = 0;
-        
-        setTimeout(() => {
-          heroBg.style.backgroundImage = `url('${heroImages[currentIndex]}')`;
-          heroBg.style.opacity = 1;
-        }, 1000);
+      img.onload = function() {
+        hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/bg-hero/${bgNum}.jpg')`;
+        currentBg = bgNum;
+      };
+      
+      img.onerror = function() {
+        if (attempts < maxAttempts) {
+          tryImage(nextBg > maxAttempts ? 1 : nextBg);
+          nextBg++;
+        }
       };
     }
     
-    // Set initial background
-    heroBg.style.backgroundImage = `url('${heroImages[0]}')`;
-    
-    // Start slideshow
-    const slideshowInterval = setInterval(changeBackground, 5000);
-    
-    // Pause on hover
-    heroBg.addEventListener('mouseenter', () => {
-      clearInterval(slideshowInterval);
-    });
-    
-    heroBg.addEventListener('mouseleave', () => {
-      slideshowInterval = setInterval(changeBackground, 5000);
-    });
+    tryImage(nextBg);
   }
-});
-
+  
+  // Change background every 3 seconds
+  setInterval(changeBackground, 3000);
+}
   // 3. Services Carousel
   const serviceContainers = document.querySelectorAll('.services-category');
   if (serviceContainers.length > 0) {
