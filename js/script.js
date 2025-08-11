@@ -39,11 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // Hero Typing Animation
   const typedText = document.getElementById('typed-text');
   if (typedText) {
-    const text = "Welcome To NEDITS Edition";
+    const text = "Welcome To Nedits Edition";
     let index = 0;
     let isDeleting = false;
-    let typingSpeed = 150;
-    let pauseDuration = 2000;
+    let typingSpeed = 200;
+    let pauseDuration = 3000;
 
     function typeWriter() {
       const currentText = text.substring(0, index);
