@@ -3,14 +3,14 @@
  * Contains all animations and interactive elements
  */
 
-// Initialize AOS animation library
+// Initialize AOS (Animate on Scroll) library
 AOS.init({
   duration: 800,
   easing: 'ease-in-out',
   once: true
 });
 
-// Add spinner animation (only once)
+// Add global spinner animation styles
 const style = document.createElement('style');
 style.textContent = `
   @keyframes spin {
@@ -31,9 +31,60 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Main initialization when DOM is loaded
+// All main scripts run after the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
-  // 1. Typewriter Effect
+  
+  // --- 1. Hero Section Animations ---
+  
+  // Hero Typing Animation
+  const typedText = document.getElementById('typed-text');
+  if (typedText) {
+    const text = "Welcome To NEDITS Edition";
+    let index = 0;
+    let isDeleting = false;
+    let typingSpeed = 150;
+    let pauseDuration = 2000;
+
+    function typeWriter() {
+      const currentText = text.substring(0, index);
+      typedText.textContent = currentText;
+
+      if (!isDeleting && index === text.length) {
+        isDeleting = true;
+        setTimeout(typeWriter, pauseDuration);
+        return;
+      }
+
+      if (isDeleting && index === 0) {
+        isDeleting = false;
+        setTimeout(typeWriter, typingSpeed);
+        return;
+      }
+
+      index = isDeleting ? index - 1 : index + 1;
+      setTimeout(typeWriter, isDeleting ? typingSpeed / 2 : typingSpeed);
+    }
+
+    // Start typing animation after a delay
+    setTimeout(typeWriter, 1000);
+  }
+
+  // Hero Background Slideshow
+  const hero = document.querySelector('.hero');
+  if (hero) {
+    const maxBgImages = 15; // Assuming there are 15 images (bg-hero/1.jpg to bg-hero/15.jpg)
+    let currentBg = 1;
+
+    function changeBackground() {
+      currentBg = (currentBg % maxBgImages) + 1;
+      hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/bg-hero/${currentBg}.jpg')`;
+    }
+
+    // Change background every 3 seconds
+    setInterval(changeBackground, 3000);
+  }
+
+  // --- 2. About Section Typewriter Effect ---
   const aboutText = document.getElementById('about-text');
   if (aboutText) {
     const fullText = aboutText.textContent;
@@ -55,75 +106,7 @@ document.addEventListener('DOMContentLoaded', function() {
     typewriterObserver.observe(aboutText);
   }
 
-  // 2. Hero Background Slideshow
-// Hero Typing Animation
-const typedText = document.getElementById('typed-text');
-if (typedText) {
-  const text = "Welcome To NEDITS Edition";
-  let index = 0;
-  let isDeleting = false;
-  let typingSpeed = 150;
-  let pauseDuration = 2000;
-  
-  function typeWriter() {
-    const currentText = text.substring(0, index);
-    typedText.textContent = currentText;
-    
-    if (!isDeleting && index === text.length) {
-      isDeleting = true;
-      setTimeout(typeWriter, pauseDuration);
-      return;
-    }
-    
-    if (isDeleting && index === 0) {
-      isDeleting = false;
-      setTimeout(typeWriter, typingSpeed);
-      return;
-    }
-    
-    index = isDeleting ? index - 1 : index + 1;
-    setTimeout(typeWriter, isDeleting ? typingSpeed / 2 : typingSpeed);
-  }
-  
-  // Start typing animation
-  setTimeout(typeWriter, 1000);
-}
-
-// Hero Background Slideshow
-const hero = document.querySelector('.hero');
-if (hero) {
-  let currentBg = 1;
-  const maxAttempts = 15; // Maximum number of images to check
-  
-  function changeBackground() {
-    let nextBg = currentBg + 1;
-    let attempts = 0;
-    
-    function tryImage(bgNum) {
-      attempts++;
-      const img = new Image();
-      img.src = `images/bg-hero/${bgNum}.jpg`;
-      
-      img.onload = function() {
-        hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('images/bg-hero/${bgNum}.jpg')`;
-        currentBg = bgNum;
-      };
-      
-      img.onerror = function() {
-        if (attempts < maxAttempts) {
-          tryImage(nextBg > maxAttempts ? 1 : nextBg);
-          nextBg++;
-        }
-      };
-    }
-    
-    tryImage(nextBg);
-  }
-  
-  // Change background every 3 seconds
-  setInterval(changeBackground, 3000);
-}
-  // 3. Services Carousel
+  // --- 3. Services Carousel ---
   const serviceContainers = document.querySelectorAll('.services-category');
   if (serviceContainers.length > 0) {
     serviceContainers.forEach(container => {
@@ -206,18 +189,7 @@ if (hero) {
     });
   }
 
-  // 4. About Section Animations
-  document.querySelectorAll('#about [data-anim]').forEach(el => {
-    const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        el.classList.add('visible');
-        observer.disconnect();
-      }
-    }, { threshold: 0.3 });
-    observer.observe(el);
-  });
-
-  // 5. Section Headings Animation
+  // --- 4. Section Heading Animation ---
   const sectionHeadings = document.querySelectorAll('.section h2');
   if (sectionHeadings.length > 0) {
     const headingObserver = new IntersectionObserver((entries) => {
@@ -231,19 +203,69 @@ if (hero) {
     sectionHeadings.forEach(h2 => headingObserver.observe(h2));
   }
 
-  // 6. Smooth Scrolling
+  // --- 5. Smooth Scrolling ---
   document.querySelectorAll('.nav-links a').forEach(link => {
     link.addEventListener('click', e => {
       if (link.hash && document.querySelector(link.hash)) {
         e.preventDefault();
-        document.querySelector(link.hash).scrollIntoView({ 
-          behavior: 'smooth' 
+        document.querySelector(link.hash).scrollIntoView({
+          behavior: 'smooth'
         });
       }
     });
   });
+  
+  // --- 6. Scroll Progress and Sticky Nav ---
+  window.addEventListener("scroll", () => {
+    let scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.querySelector(".scroll-progress").style.width = scrollPercent + "%";
+    
+    const header = document.querySelector(".main-header");
+    header.classList.toggle("sticky", window.scrollY > 30);
+  });
 
-  // 7. Counter Animations
+  // --- 7. Mobile Menu Toggle ---
+  const hamburger = document.querySelector(".hamburger");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const mobileOverlay = document.querySelector(".mobile-menu-overlay");
+  let isMenuOpen = false;
+
+  hamburger.addEventListener("click", () => {
+    isMenuOpen = !isMenuOpen;
+    
+    if(isMenuOpen) {
+      hamburger.classList.add("active");
+      mobileMenu.classList.add("show");
+      mobileOverlay.classList.add("show");
+      document.body.classList.add("no-scroll");
+    } else {
+      hamburger.classList.remove("active");
+      mobileMenu.classList.remove("show");
+      mobileOverlay.classList.remove("show");
+      document.body.classList.remove("no-scroll");
+    }
+  });
+
+  // Close mobile menu when clicking overlay or links
+  mobileOverlay.addEventListener("click", () => {
+    closeMobileMenu();
+  });
+
+  document.querySelectorAll(".mobile-link").forEach(link => {
+    link.addEventListener("click", () => {
+      closeMobileMenu();
+    });
+  });
+  
+  function closeMobileMenu() {
+    hamburger.classList.remove("active");
+    mobileMenu.classList.remove("show");
+    mobileOverlay.classList.remove("show");
+    document.body.classList.remove("no-scroll");
+    isMenuOpen = false;
+  }
+  
+  // --- 8. Counter Animations ---
   const achievements = document.getElementById("achievements");
   if (achievements) {
     const counterObserver = new IntersectionObserver((entries) => {
@@ -257,7 +279,7 @@ if (hero) {
     counterObserver.observe(achievements);
   }
 
-  // 8. Timeline Animations
+  // --- 9. Timeline Animations ---
   const timelineItems = document.querySelectorAll('.timeline-item');
   if (timelineItems.length > 0) {
     const timelineObserver = new IntersectionObserver((entries) => {
@@ -270,14 +292,14 @@ if (hero) {
     }, { threshold: 0.2 });
     timelineItems.forEach(item => timelineObserver.observe(item));
   }
-
-  // 9. Testimonials Carousel
+  
+  // --- 10. Testimonials Carousel ---
   initTestimonialsCarousel();
 
-  // 10. Contact Form
+  // --- 11. Contact Form ---
   handleContactForm();
 
-  // 11. Footer Functionality
+  // --- 12. Footer Functionality ---
   document.getElementById('current-year').textContent = new Date().getFullYear();
   
   const newsletterForm = document.querySelector('.newsletter-form');
@@ -330,6 +352,9 @@ if (hero) {
     });
   });
 });
+
+
+// --- Global Functions (outside DOMContentLoaded) ---
 
 // Testimonials Carousel Function
 function initTestimonialsCarousel() {
@@ -516,55 +541,3 @@ function animateCounter(elementId, target, duration) {
   
   requestAnimationFrame(updateCounter);
 }
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Scroll Progress + Sticky Nav
-  window.addEventListener("scroll", () => {
-    let scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-    document.querySelector(".scroll-progress").style.width = scrollPercent + "%";
-    
-    const header = document.querySelector(".main-nav-head");
-    header.classList.toggle("sticky", window.scrollY > 30);
-  });
-
-  // Mobile Menu Toggle with proper animation
-  const hamburger = document.querySelector(".hamburger");
-  const mobileMenu = document.querySelector(".mobile-menu");
-  const mobileOverlay = document.querySelector(".mobile-menu-overlay");
-  let isMenuOpen = false;
-
-  hamburger.addEventListener("click", () => {
-    isMenuOpen = !isMenuOpen;
-    
-    if(isMenuOpen) {
-      hamburger.classList.add("active");
-      mobileMenu.classList.add("show");
-      mobileOverlay.classList.add("show");
-      document.body.classList.add("no-scroll");
-    } else {
-      hamburger.classList.remove("active");
-      mobileMenu.classList.remove("show");
-      mobileOverlay.classList.remove("show");
-      document.body.classList.remove("no-scroll");
-    }
-  });
-
-  // Close menu when clicking overlay or links
-  mobileOverlay.addEventListener("click", () => {
-    hamburger.classList.remove("active");
-    mobileMenu.classList.remove("show");
-    mobileOverlay.classList.remove("show");
-    document.body.classList.remove("no-scroll");
-    isMenuOpen = false;
-  });
-
-  document.querySelectorAll(".mobile-link").forEach(link => {
-    link.addEventListener("click", () => {
-      hamburger.classList.remove("active");
-      mobileMenu.classList.remove("show");
-      mobileOverlay.classList.remove("show");
-      document.body.classList.remove("no-scroll");
-      isMenuOpen = false;
-    });
-  });
-});
