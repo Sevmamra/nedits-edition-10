@@ -56,8 +56,11 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // 2. Hero Background Slideshow
-  const hero = document.querySelector('.hero');
-  if (hero) {
+  // Enhanced Hero Background Slideshow
+document.addEventListener('DOMContentLoaded', function() {
+  const heroBg = document.querySelector('.hero-bg');
+  
+  if (heroBg) {
     const heroImages = [
       'images/hero-bg1.jpg',
       'images/hero-bg2.jpg',
@@ -66,18 +69,48 @@ document.addEventListener('DOMContentLoaded', function() {
       'images/hero-bg5.jpg',
       'images/hero-bg6.jpg'
     ];
-    let availableImages = [...heroImages];
-
+    
+    let currentIndex = 0;
+    
+    // Preload images
+    heroImages.forEach(img => {
+      const image = new Image();
+      image.src = img;
+    });
+    
     function changeBackground() {
-      if (availableImages.length === 0) availableImages = [...heroImages];
-      const randomIndex = Math.floor(Math.random() * availableImages.length);
-      const selectedImage = availableImages.splice(randomIndex, 1)[0];
-      hero.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${selectedImage}')`;
+      currentIndex = (currentIndex + 1) % heroImages.length;
+      
+      // Create new image element
+      const nextImage = new Image();
+      nextImage.src = heroImages[currentIndex];
+      nextImage.onload = () => {
+        // Apply new background
+        heroBg.style.opacity = 0;
+        
+        setTimeout(() => {
+          heroBg.style.backgroundImage = `url('${heroImages[currentIndex]}')`;
+          heroBg.style.opacity = 1;
+        }, 1000);
+      };
     }
-
-    changeBackground();
-    setInterval(changeBackground, 3000);
+    
+    // Set initial background
+    heroBg.style.backgroundImage = `url('${heroImages[0]}')`;
+    
+    // Start slideshow
+    const slideshowInterval = setInterval(changeBackground, 5000);
+    
+    // Pause on hover
+    heroBg.addEventListener('mouseenter', () => {
+      clearInterval(slideshowInterval);
+    });
+    
+    heroBg.addEventListener('mouseleave', () => {
+      slideshowInterval = setInterval(changeBackground, 5000);
+    });
   }
+});
 
   // 3. Services Carousel
   const serviceContainers = document.querySelectorAll('.services-category');
