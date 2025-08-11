@@ -473,33 +473,56 @@ function animateCounter(elementId, target, duration) {
   requestAnimationFrame(updateCounter);
 }
 
-// Simplified JavaScript
+// Enhanced JavaScript with animations
 document.addEventListener('DOMContentLoaded', function() {
   // Scroll Progress + Sticky Nav
   window.addEventListener("scroll", () => {
-    // Progress bar
     let scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
     document.querySelector(".scroll-progress").style.width = scrollPercent + "%";
     
-    // Sticky header
     const header = document.querySelector(".main-header");
-    header.classList.toggle("sticky", window.scrollY > 50);
+    header.classList.toggle("sticky", window.scrollY > 30);
   });
 
-  // Mobile Menu Toggle
+  // Mobile Menu Toggle with overlay
   const hamburger = document.querySelector(".hamburger");
   const mobileMenu = document.querySelector(".mobile-menu");
+  const mobileOverlay = document.querySelector(".mobile-menu-overlay");
 
   hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("show");
+    mobileOverlay.classList.toggle("show");
+    document.body.classList.toggle("no-scroll");
   });
 
-  // Close menu when clicking on links
-  document.querySelectorAll(".mobile-menu a").forEach(link => {
+  // Close menu when clicking overlay or links
+  mobileOverlay.addEventListener("click", () => {
+    hamburger.classList.remove("active");
+    mobileMenu.classList.remove("show");
+    mobileOverlay.classList.remove("show");
+    document.body.classList.remove("no-scroll");
+  });
+
+  document.querySelectorAll(".mobile-link").forEach(link => {
     link.addEventListener("click", () => {
       hamburger.classList.remove("active");
       mobileMenu.classList.remove("show");
+      mobileOverlay.classList.remove("show");
+      document.body.classList.remove("no-scroll");
+    });
+  });
+
+  // Add hover effect to desktop links
+  const navLinks = document.querySelectorAll('.nav-link');
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => {
+      link.style.transform = 'translateY(-3px)';
+      link.style.textShadow = '0 0 12px rgba(255, 255, 255, 0.4)';
+    });
+    link.addEventListener('mouseleave', () => {
+      link.style.transform = 'translateY(0)';
+      link.style.textShadow = 'none';
     });
   });
 });
