@@ -301,6 +301,7 @@ header {
 
 .hero-title {
   font-size: 4.5rem;
+  color: linear-gradient(45deg, #ff6a00, #ee0979);
   margin-bottom: 20px;
   min-height: 120px;
   display: flex;
