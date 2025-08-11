@@ -188,8 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
       startCarousel();
     });
   }
-  
-  // --- 4. Section Heading and Other Animations ---
+
+  // --- 4. Section Heading Animation ---
   const sectionHeadings = document.querySelectorAll('.section h2');
   if (sectionHeadings.length > 0) {
     const headingObserver = new IntersectionObserver((entries) => {
@@ -202,18 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
     }, { threshold: 0.5 });
     sectionHeadings.forEach(h2 => headingObserver.observe(h2));
   }
-  
-  // General animation for elements with data-anim attribute
-  document.querySelectorAll('[data-anim]').forEach(el => {
-    const observer = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting) {
-        el.classList.add('visible');
-        observer.disconnect();
-      }
-    }, { threshold: 0.3 });
-    observer.observe(el);
-  });
-
 
   // --- 5. Smooth Scrolling ---
   document.querySelectorAll('.nav-links a').forEach(link => {
@@ -251,7 +239,10 @@ document.addEventListener('DOMContentLoaded', function() {
       mobileOverlay.classList.add("show");
       document.body.classList.add("no-scroll");
     } else {
-      closeMobileMenu();
+      hamburger.classList.remove("active");
+      mobileMenu.classList.remove("show");
+      mobileOverlay.classList.remove("show");
+      document.body.classList.remove("no-scroll");
     }
   });
 
@@ -502,7 +493,7 @@ function handleContactForm() {
       
       submitBtn.innerHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M22 11.08V12a10 10 1 1-5.93-9.14"/>
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
           <polyline points="22 4 12 14.01 9 11.01"/>
         </svg>
         Message Sent!
