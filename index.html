@@ -36,21 +36,24 @@
   </header>
 
   <!-- Navigation -->
+<!-- HTML remains mostly the same, just added some aria-labels -->
 <div class="scroll-progress"></div>
 
 <header class="main-header">
   <div class="nav-container">
-    <!-- Desktop Menu -->
-    <nav class="nav-links">
-      <a href="#home">Home</a>
-      <a href="#about">About</a>
-      <a href="#services">Services</a>
-      <a href="#portfolio">Portfolio</a>
-      <a href="#contact">Contact</a>
+    <!-- Logo added -->
+    <div class="logo">Your<span>Brand</span></div>
+    
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#home" class="nav-link">Home</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="#services" class="nav-link">Services</a>
+      <a href="#portfolio" class="nav-link">Portfolio</a>
+      <a href="#contact" class="nav-link">Contact</a>
     </nav>
 
-    <!-- Mobile Hamburger (circular BG) -->
-    <div class="hamburger">
+    <!-- Enhanced hamburger -->
+    <div class="hamburger" aria-label="Mobile menu toggle">
       <div class="hamburger-icon">
         <span></span>
         <span></span>
@@ -59,13 +62,14 @@
     </div>
   </div>
 
-  <!-- Mobile Menu (with black BG) -->
+  <!-- Mobile Menu with gradient overlay -->
+  <div class="mobile-menu-overlay"></div>
   <div class="mobile-menu">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#contact">Contact</a>
+    <a href="#home" class="mobile-link">Home</a>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#portfolio" class="mobile-link">Portfolio</a>
+    <a href="#contact" class="mobile-link">Contact</a>
   </div>
 </header>
   
