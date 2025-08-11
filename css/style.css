@@ -90,109 +90,82 @@ header {
 }
 
 /* ======================================
-Partners/Clients Section - NEW 3D ANIMATION DESIGN
-====================================== /
+   Partners/Clients Section - FINAL DESIGN
+====================================== */
 .partners-section {
-padding: 180px 20px; / Further increased section space /
-background-color: #ee0979; / Vibrant pink background */
-text-align: center;
-position: relative;
-overflow: hidden;
+  padding: 180px 20px;
+  background-color: #1a0833;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
 }
 
 .partners-section .container {
-position: relative;
-z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .partners-section .section-title {
-color: #fff;
-margin-bottom: 80px;
+  color: #fff;
+  margin-bottom: 80px;
+  text-transform: uppercase;
+  font-family: 'Days One', sans-serif;
+  letter-spacing: 2px;
 }
 
 .marquee-container {
-position: relative;
-overflow: hidden;
-white-space: nowrap;
-width: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  height: 200px; /* Container height for logos */
 }
 
+#partners-carousel {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  white-space: nowrap;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  transform-style: preserve-3d; /* Key for 3D effect */
+  perspective: 1000px;
+}
+
+#partners-carousel img {
+  height: 120px;
+  margin: 0 40px;
+  filter: grayscale(100%) brightness(200%) opacity(0.6);
+  transition: transform 0.1s ease, filter 0.3s ease;
+  will-change: transform;
+}
+
+#partners-carousel img:hover {
+  filter: grayscale(0%) brightness(100%) opacity(1);
+  transform: scale(1.2);
+}
+
+/* Blur effect on edges */
 .marquee-container::before,
 .marquee-container::after {
-content: '';
-position: absolute;
-top: 0;
-width: 200px; /* Increased fade width */
-height: 100%;
-z-index: 2;
-pointer-events: none;
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
 }
 
 .marquee-container::before {
-left: 0;
-background: linear-gradient(to right, #ee0979 0%, rgba(238, 9, 121, 0) 100%);
+  left: 0;
+  background: linear-gradient(to right, #1a0833 0%, rgba(26, 8, 51, 0) 100%);
 }
 
 .marquee-container::after {
-right: 0;
-background: linear-gradient(to left, #ee0979 0%, rgba(238, 9, 121, 0) 100%);
-}
-
-.marquee-content {
-display: inline-block;
-animation: marquee-scroll 60s linear infinite; /* Slower animation for better 3D effect visibility */
-padding: 0 50px;
-}
-
-.marquee-content img {
-height: 120px; /* Further increased logo size /
-max-width: 250px;
-margin: 0 60px; / Increased margin */
-display: inline-block;
-filter: grayscale(100%) brightness(200%) opacity(0.7);
-transition: transform 0.5s ease-in-out, filter 0.3s ease;
-vertical-align: middle;
-}
-
-.marquee-content img:hover {
-filter: grayscale(0%) brightness(100%) opacity(1);
-transform: scale(1.1) rotateY(0deg);
-}
-
-/* 3D Rotate effect based on position (approximate) /
-.marquee-content img:nth-child(-n+5) { / First few entering from right */
-transform: rotateY(30deg);
-}
-
-.marquee-content img:nth-last-child(-n+5) { /* Last few exiting to left */
-transform: rotateY(-30deg);
-}
-
-@keyframes marquee-scroll {
-from {
-transform: translateX(0);
-}
-to {
-transform: translateX(-50%);
-}
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-.partners-section {
-padding: 120px 20px;
-}
-.marquee-content img {
-height: 80px;
-margin: 0 30px;
-}
-.marquee-container::before,
-.marquee-container::after {
-width: 100px;
-}
-.marquee-content {
-animation-duration: 40s;
-}
+  right: 0;
+  background: linear-gradient(to left, #1a0833 0%, rgba(26, 8, 51, 0) 100%);
 }
 
 /* ======================================
