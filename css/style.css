@@ -90,46 +90,50 @@ header {
 }
 
 /* ======================================
-   Partners/Clients Section - New Design
+   Partners/Clients Section - NEW IMPROVED DESIGN
 ====================================== */
 .partners-section {
-  padding: 100px 20px;
-  background-color: #4b1b8b; /* Dark purple background */
+  padding: 150px 20px; /* Increased overall section space */
+  background-color: #4b1b8b;
   text-align: center;
   position: relative;
   overflow: hidden;
+  color: #fff; /* White text color */
 }
 
+/* New CSS for smooth waves */
 .partners-section::before,
 .partners-section::after {
   content: '';
   position: absolute;
   left: 0;
   width: 100%;
-  height: 100px; /* Wave height */
-  background: #ee0979; /* Pink wave color */
+  height: 100%;
+  background: #ee0979;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .partners-section::before {
-  top: 0;
-  transform: skewY(-2deg) scaleX(2);
+  top: -80px;
+  transform: skewY(-2deg) scaleX(2.5);
   transform-origin: top left;
 }
 
 .partners-section::after {
-  bottom: 0;
-  transform: skewY(2deg) scaleX(2);
+  bottom: -80px;
+  transform: skewY(2deg) scaleX(2.5);
   transform-origin: bottom right;
 }
 
 .partners-section .container {
-  position: relative; /* To keep content above the waves */
-  z-index: 2;
+  position: relative;
+  z-index: 1; /* Ensures content is above the waves */
 }
 
 .partners-section .section-title {
-  color: #fff; /* White text for contrast */
-  margin-bottom: 50px;
+  color: #fff;
+  margin-bottom: 70px;
 }
 
 .marquee-container {
@@ -166,18 +170,18 @@ header {
 }
 
 .marquee-content img {
-  height: 80px;
-  max-width: 150px;
-  margin: 0 40px;
+  height: 100px; /* Increased logo size */
+  max-width: 200px;
+  margin: 0 50px; /* Increased margin for better spacing */
   display: inline-block;
-  filter: grayscale(100%) brightness(150%) opacity(0.8);
+  filter: grayscale(100%) brightness(180%) opacity(0.8);
   transition: all 0.3s ease;
   vertical-align: middle;
 }
 
 .marquee-content img:hover {
   filter: grayscale(0%) brightness(100%) opacity(1);
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 @keyframes marquee-scroll {
@@ -192,8 +196,8 @@ header {
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .marquee-content img {
-    height: 60px;
-    margin: 0 20px;
+    height: 80px;
+    margin: 0 30px;
   }
   
   .marquee-content {
