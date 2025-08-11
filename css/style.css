@@ -118,7 +118,7 @@ header {
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: 200px; /* Container height for logos */
+  height: 200px;
 }
 
 #partners-carousel {
@@ -129,7 +129,7 @@ header {
   transform: translateY(-50%);
   display: flex;
   align-items: center;
-  transform-style: preserve-3d; /* Key for 3D effect */
+  transform-style: preserve-3d;
   perspective: 1000px;
 }
 
