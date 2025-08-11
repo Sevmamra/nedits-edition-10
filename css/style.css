@@ -89,59 +89,66 @@ header {
   }
 }
 
-/* CSS */
-.client-showcase {
-  padding: 6.6vmax 0;
-  background: white;
+/* ======================================
+   Partners/Clients Section - Continuous Marquee
+====================================== */
+.partners-section {
+  padding: 80px 20px;
+  background: #f4f4f4;
   text-align: center;
 }
 
-.section-title {
-  font-weight: bold;
-  margin-bottom: 91px;
+.partners-section .section-title {
+  color: #333;
+  margin-bottom: 50px;
 }
 
-.client-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 60px;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+  width: 100%;
 }
 
-.client-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
+.marquee-content {
+  display: inline-block;
+  animation: marquee-scroll 40s linear infinite;
+  padding: 0 20px; /* Add some space between the ends */
 }
 
-.client-item img {
-  max-width: 100%;
-  height: auto;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
+.marquee-content img {
+  height: 80px;
+  max-width: 150px;
+  margin: 0 40px;
+  display: inline-block;
+  filter: grayscale(100%) opacity(0.7);
+  transition: all 0.3s ease;
+  vertical-align: middle;
 }
 
-.client-item img:hover {
-  filter: grayscale(0%);
+.marquee-content img:hover {
+  filter: grayscale(0%) opacity(1);
+  transform: scale(1.05);
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .client-grid {
-    grid-template-columns: repeat(2, 1fr);
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
-@media (max-width: 480px) {
-  .client-grid {
-    grid-template-columns: 1fr;
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .marquee-content img {
+    height: 60px;
+    margin: 0 20px;
   }
   
-  .section-title {
-    margin-bottom: 60px;
+  .marquee-content {
+    animation-duration: 25s; /* Faster scroll on mobile */
   }
 }
 
