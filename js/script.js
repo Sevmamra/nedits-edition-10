@@ -473,12 +473,11 @@ function animateCounter(elementId, target, duration) {
   requestAnimationFrame(updateCounter);
 }
 
-// Scroll Progress Bar
+// Scroll Progress Bar + Sticky Navbar
 window.addEventListener("scroll", () => {
   let scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
   document.querySelector(".scroll-progress").style.width = scrollPercent + "%";
 
-  // Sticky Navbar
   const header = document.querySelector(".main-header");
   if (window.scrollY > 50) {
     header.classList.add("sticky");
@@ -490,11 +489,16 @@ window.addEventListener("scroll", () => {
 // Mobile Menu Toggle
 const hamburger = document.querySelector(".hamburger");
 const mobileMenu = document.querySelector(".mobile-menu");
+
 hamburger.addEventListener("click", () => {
+  hamburger.classList.toggle("active");
   mobileMenu.classList.toggle("show");
 });
+
+// Close menu on link click
 document.querySelectorAll(".mobile-menu a").forEach(link => {
   link.addEventListener("click", () => {
     mobileMenu.classList.remove("show");
+    hamburger.classList.remove("active");
   });
 });
