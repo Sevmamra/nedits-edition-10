@@ -39,7 +39,7 @@
 <!-- HTML remains mostly the same, just added some aria-labels -->
 <div class="scroll-progress"></div>
 
-<nav class="main-navigation">
+<nav-head class="main-nav-head">
   <div class="nav-container">
     
     <nav class="nav-links" aria-label="Main navigation">
@@ -69,34 +69,15 @@
     <a href="#portfolio" class="mobile-link">Portfolio</a>
     <a href="#contact" class="mobile-link">Contact</a>
   </div>
-</nav>
+</nav-head>
   
 <!-- Hero Section -->
+<!-- Hero Section -->
 <section class="hero" id="home" aria-labelledby="hero-heading">
-  <div class="hero-bg"></div>
   <div class="container">
-    <div class="hero-content" data-aos="fade-up">
-      <h1 class="hero-title">
-        <span class="title-line">Welcome to</span>
-        <span class="title-accent">NEDITS Edition</span>
-      </h1>
-      <p class="hero-subtitle">Crafting digital excellence with precision</p>
-      <a href="#services" class="btn explore-btn">
-        <span>Explore Services</span>
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </a>
-    </div>
-  </div>
-  <div class="scroll-indicator">
-    <div class="mouse">
-      <div class="wheel"></div>
-    </div>
-    <div class="arrows">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="hero-overlay" data-aos="zoom-in-down">
+      <h1 class="hero-title" id="typed-text"></h1>
+      <a href="#services" class="btn explore-btn">Explore Services</a>
     </div>
   </div>
 </section>
