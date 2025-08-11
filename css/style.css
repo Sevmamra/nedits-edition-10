@@ -92,7 +92,6 @@ header {
 /* ======================================
    Navbar Styles
 ====================================== */
-/* Simplified CSS */
 :root {
   --primary-color: #ff005c;
   --secondary-color: #ff7b00;
@@ -111,7 +110,7 @@ header {
   z-index: 2000;
 }
 
-/* Header - Initially transparent */
+/* Desktop: Thin black BG when sticky */
 .main-header {
   position: fixed;
   top: 0;
@@ -121,9 +120,9 @@ header {
   transition: all 0.3s ease;
 }
 
-/* Only show nav links when sticky */
-.main-header.sticky .nav-links a {
-  opacity: 1;
+.main-header.sticky {
+  background: rgba(0, 0, 0, 0.85); /* Thin black BG */
+  backdrop-filter: blur(8px);
 }
 
 .nav-container {
@@ -132,29 +131,24 @@ header {
   padding: 15px 20px;
   display: flex;
   justify-content: flex-end;
-  align-items: center;
 }
 
-/* Desktop Nav Links - Hidden by default */
+/* Desktop Nav Links (visible only when sticky) */
 .nav-links {
   display: flex;
   gap: 25px;
 }
 
 .nav-links a {
-  position: relative;
+  color: transparent; /* Hidden by default */
   text-decoration: none;
-  color: transparent; /* Initially transparent */
   font-weight: 500;
-  font-size: 1rem;
   transition: all 0.3s ease;
-  padding: 5px 0;
-  opacity: 0;
+  position: relative;
 }
 
-/* Show text only when sticky */
 .main-header.sticky .nav-links a {
-  color: var(--text-color);
+  color: var(--text-color); /* Visible when sticky */
 }
 
 .nav-links a::before {
@@ -162,7 +156,7 @@ header {
   position: absolute;
   width: 0;
   height: 2px;
-  bottom: 0;
+  bottom: -5px;
   left: 0;
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   transition: width 0.3s ease;
@@ -172,7 +166,7 @@ header {
   width: 100%;
 }
 
-/* Mobile Hamburger with circular bg */
+/* Mobile Hamburger (circular BG) */
 .hamburger {
   display: none;
   cursor: pointer;
@@ -182,20 +176,19 @@ header {
 .hamburger-icon {
   width: 40px;
   height: 40px;
-  background: rgba(0,0,0,0.7);
+  background: rgba(0, 0, 0, 0.7); /* Circular black BG */
   border-radius: 50%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  padding: 8px;
 }
 
 .hamburger span {
   width: 20px;
   height: 2px;
-  background: var(--text-color);
+  background: white;
   transition: all 0.3s ease;
 }
 
@@ -211,28 +204,32 @@ header {
   transform: rotate(-45deg) translate(4px, -4px);
 }
 
-/* Mobile Menu - No black bg */
+/* Mobile Menu (with black BG) */
 .mobile-menu {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 100%;
+  width: 70%;
   height: 100vh;
-  background: transparent;
+  background: var(--bg-dark); /* Black BG for menu */
+  backdrop-filter: blur(10px);
   z-index: 1000;
   transition: right 0.4s ease;
+  padding-top: 80px;
   display: flex;
   flex-direction: column;
-  padding-top: 80px;
   align-items: center;
   gap: 20px;
 }
 
+.mobile-menu.show {
+  right: 0;
+}
+
 .mobile-menu a {
-  color: var(--text-color);
+  color: white;
   text-decoration: none;
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.2rem;
   opacity: 0;
   transform: translateX(20px);
   transition: all 0.3s ease;
@@ -243,11 +240,7 @@ header {
   transform: translateX(0);
 }
 
-.mobile-menu.show {
-  right: 0;
-}
-
-/* Delay for each link */
+/* Link animation delays */
 .mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
 .mobile-menu a:nth-child(2) { transition-delay: 0.2s; }
 .mobile-menu a:nth-child(3) { transition-delay: 0.3s; }
@@ -259,14 +252,8 @@ header {
   .nav-links {
     display: none;
   }
-  
   .hamburger {
     display: flex;
-  }
-  
-  /* Make sticky header shorter on mobile */
-  .main-header.sticky {
-    padding: 5px 0;
   }
 }
 
