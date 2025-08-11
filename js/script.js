@@ -473,7 +473,7 @@ function animateCounter(elementId, target, duration) {
   requestAnimationFrame(updateCounter);
 }
 
-// Improved JavaScript
+// Simplified JavaScript
 document.addEventListener('DOMContentLoaded', function() {
   // Scroll Progress + Sticky Nav
   window.addEventListener("scroll", () => {
@@ -489,12 +489,10 @@ document.addEventListener('DOMContentLoaded', function() {
   // Mobile Menu Toggle
   const hamburger = document.querySelector(".hamburger");
   const mobileMenu = document.querySelector(".mobile-menu");
-  const body = document.body;
 
   hamburger.addEventListener("click", () => {
     hamburger.classList.toggle("active");
     mobileMenu.classList.toggle("show");
-    body.classList.toggle("no-scroll");
   });
 
   // Close menu when clicking on links
@@ -502,16 +500,6 @@ document.addEventListener('DOMContentLoaded', function() {
     link.addEventListener("click", () => {
       hamburger.classList.remove("active");
       mobileMenu.classList.remove("show");
-      body.classList.remove("no-scroll");
     });
-  });
-
-  // Close menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
-      hamburger.classList.remove("active");
-      mobileMenu.classList.remove("show");
-      body.classList.remove("no-scroll");
-    }
   });
 });
