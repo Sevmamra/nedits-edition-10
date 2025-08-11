@@ -89,6 +89,62 @@ header {
   }
 }
 
+/* CSS */
+.client-showcase {
+  padding: 6.6vmax 0;
+  background: white;
+  text-align: center;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-bottom: 91px;
+}
+
+.client-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.client-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.client-item img {
+  max-width: 100%;
+  height: auto;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.client-item img:hover {
+  filter: grayscale(0%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .client-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .client-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .section-title {
+    margin-bottom: 60px;
+  }
+}
+
 /* ======================================
    Navbar Styles
 ====================================== */
