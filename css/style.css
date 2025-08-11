@@ -122,23 +122,16 @@ header {
 .nav-container {
   max-width: 1200px;
   margin: auto;
-  padding: 15px 20px;
+  padding: 10px 20px; /* Sleeker height */
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Logo */
-.logo {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: white;
-}
-
 /* Desktop Nav Links */
 .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 15px;
 }
 .nav-links a {
   position: relative;
@@ -153,6 +146,7 @@ header {
   opacity: 0;
   transform: translateY(-10px);
   animation: fadeSlide 0.5s ease forwards;
+  padding: 5px 8px; /* Sleeker links */
 }
 .nav-links a:nth-child(1) { animation-delay: 0.2s; }
 .nav-links a:nth-child(2) { animation-delay: 0.4s; }
@@ -189,14 +183,25 @@ header {
 .hamburger {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
   cursor: pointer;
 }
 .hamburger span {
-  width: 25px;
-  height: 3px;
+  width: 22px;
+  height: 2px;
   background: white;
   transition: 0.3s;
+}
+
+/* Hamburger Active Animation */
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(4px, 4px);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(4px, -4px);
 }
 
 /* Mobile Menu */
@@ -204,19 +209,19 @@ header {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 70%;
+  width: 65%;
   height: 100%;
   background: rgba(0,0,0,0.95);
   display: flex;
   flex-direction: column;
-  padding-top: 60px;
-  gap: 20px;
+  padding-top: 50px;
+  gap: 15px;
   padding-left: 20px;
   transition: right 0.4s ease;
 }
 .mobile-menu a {
   color: white;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   text-decoration: none;
 }
 .mobile-menu.show {
