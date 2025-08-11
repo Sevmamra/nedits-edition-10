@@ -541,3 +541,48 @@ function animateCounter(elementId, target, duration) {
   
   requestAnimationFrame(updateCounter);
 }
+
+// Function for 3D marquee effect
+function initPartnersMarquee() {
+  const carousel = document.getElementById('partners-carousel');
+  if (!carousel) return;
+
+  const images = Array.from(carousel.querySelectorAll('img'));
+  let scrollPosition = 0;
+  const scrollSpeed = 0.5; // Controls the speed of the scroll
+
+  // Duplicate images for a seamless loop
+  const originalCarousel = carousel.innerHTML;
+  carousel.innerHTML += originalCarousel;
+
+  function updateScroll() {
+    scrollPosition -= scrollSpeed;
+    if (Math.abs(scrollPosition) >= carousel.scrollWidth / 2) {
+      scrollPosition = 0;
+    }
+
+    carousel.style.transform = `translateX(${scrollPosition}px)`;
+
+    // Apply 3D rotation based on position
+    images.forEach(img => {
+      const imgRect = img.getBoundingClientRect();
+      const carouselRect = carousel.getBoundingClientRect();
+      const imgCenter = imgRect.left + imgRect.width / 2;
+      const carouselCenter = carouselRect.left + carouselRect.width / 2;
+      const distance = imgCenter - carouselCenter;
+
+      // Calculate rotation based on distance from center
+      const maxRotation = 45; // Max degrees of rotation
+      const rotation = (distance / carouselRect.width) * maxRotation;
+
+      img.style.transform = `rotateY(${rotation}deg)`;
+    });
+
+    requestAnimationFrame(updateScroll);
+  }
+
+  updateScroll();
+}
+
+// Call the function on DOMContentLoaded
+document.addEventListener('DOMContentLoaded', initPartnersMarquee);
