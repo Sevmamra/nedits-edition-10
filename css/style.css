@@ -92,13 +92,12 @@ header {
 /* ======================================
    Navbar Styles
 ====================================== */
-/* Improved CSS */
+/* Simplified CSS */
 :root {
   --primary-color: #ff005c;
   --secondary-color: #ff7b00;
   --text-color: #fff;
-  --bg-dark: rgba(0, 0, 0, 0.9);
-  --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  --bg-dark: rgba(0, 0, 0, 0.95);
 }
 
 /* Progress Bar */
@@ -110,48 +109,33 @@ header {
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   width: 0;
   z-index: 2000;
-  transition: width 0.1s linear;
 }
 
-/* Header */
+/* Header - Initially transparent */
 .main-header {
   position: fixed;
   top: 0;
   width: 100%;
   background: transparent;
   z-index: 1000;
-  transition: var(--transition);
-  padding: 15px 0;
+  transition: all 0.3s ease;
 }
 
-.main-header.sticky {
-  background: var(--bg-dark);
-  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-  backdrop-filter: blur(10px);
-  padding: 10px 0;
+/* Only show nav links when sticky */
+.main-header.sticky .nav-links a {
+  opacity: 1;
 }
 
 .nav-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 15px 20px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
 }
 
-.logo a {
-  color: var(--text-color);
-  font-size: 1.5rem;
-  font-weight: 700;
-  text-decoration: none;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-/* Desktop Nav Links */
+/* Desktop Nav Links - Hidden by default */
 .nav-links {
   display: flex;
   gap: 25px;
@@ -160,21 +144,18 @@ header {
 .nav-links a {
   position: relative;
   text-decoration: none;
-  color: var(--text-color);
+  color: transparent; /* Initially transparent */
   font-weight: 500;
   font-size: 1rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
   padding: 5px 0;
   opacity: 0;
-  transform: translateY(-10px);
-  animation: fadeSlide 0.5s ease forwards;
 }
 
-.nav-links a:nth-child(1) { animation-delay: 0.2s; }
-.nav-links a:nth-child(2) { animation-delay: 0.3s; }
-.nav-links a:nth-child(3) { animation-delay: 0.4s; }
-.nav-links a:nth-child(4) { animation-delay: 0.5s; }
-.nav-links a:nth-child(5) { animation-delay: 0.6s; }
+/* Show text only when sticky */
+.main-header.sticky .nav-links a {
+  color: var(--text-color);
+}
 
 .nav-links a::before {
   content: '';
@@ -184,38 +165,42 @@ header {
   bottom: 0;
   left: 0;
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  transition: var(--transition);
+  transition: width 0.3s ease;
 }
 
 .nav-links a:hover::before {
   width: 100%;
 }
 
-.nav-links a:hover {
-  color: #fff;
-}
-
-/* Mobile Menu Styles */
+/* Mobile Hamburger with circular bg */
 .hamburger {
   display: none;
-  flex-direction: column;
-  gap: 5px;
   cursor: pointer;
   z-index: 1001;
-  padding: 5px;
+}
+
+.hamburger-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  padding: 8px;
 }
 
 .hamburger span {
-  width: 25px;
+  width: 20px;
   height: 2px;
   background: var(--text-color);
-  transition: var(--transition);
-  transform-origin: left center;
+  transition: all 0.3s ease;
 }
 
 .hamburger.active span:nth-child(1) {
-  transform: rotate(45deg) translate(1px, -1px);
-  background: var(--primary-color);
+  transform: rotate(45deg) translate(4px, 4px);
 }
 
 .hamburger.active span:nth-child(2) {
@@ -223,56 +208,51 @@ header {
 }
 
 .hamburger.active span:nth-child(3) {
-  transform: rotate(-45deg) translate(1px, 1px);
-  background: var(--primary-color);
+  transform: rotate(-45deg) translate(4px, -4px);
 }
 
+/* Mobile Menu - No black bg */
 .mobile-menu {
   position: fixed;
   top: 0;
   right: -100%;
-  width: 300px;
+  width: 100%;
   height: 100vh;
-  background: var(--bg-dark);
-  backdrop-filter: blur(10px);
+  background: transparent;
   z-index: 1000;
-  transition: var(--transition);
+  transition: right 0.4s ease;
   display: flex;
   flex-direction: column;
-  padding: 80px 30px 30px;
-}
-
-.mobile-menu.show {
-  right: 0;
-}
-
-.mobile-menu-inner {
-  display: flex;
-  flex-direction: column;
+  padding-top: 80px;
+  align-items: center;
   gap: 20px;
 }
 
 .mobile-menu a {
   color: var(--text-color);
   text-decoration: none;
-  font-size: 1.2rem;
-  padding: 8px 0;
-  transition: var(--transition);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
+  font-size: 1.5rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.3s ease;
 }
 
-.mobile-menu a:hover {
-  color: var(--primary-color);
-  padding-left: 10px;
+.mobile-menu.show a {
+  opacity: 1;
+  transform: translateX(0);
 }
 
-/* Animations */
-@keyframes fadeSlide {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.mobile-menu.show {
+  right: 0;
 }
+
+/* Delay for each link */
+.mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
+.mobile-menu a:nth-child(2) { transition-delay: 0.2s; }
+.mobile-menu a:nth-child(3) { transition-delay: 0.3s; }
+.mobile-menu a:nth-child(4) { transition-delay: 0.4s; }
+.mobile-menu a:nth-child(5) { transition-delay: 0.5s; }
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -284,8 +264,9 @@ header {
     display: flex;
   }
   
+  /* Make sticky header shorter on mobile */
   .main-header.sticky {
-    padding: 10px 0;
+    padding: 5px 0;
   }
 }
 
