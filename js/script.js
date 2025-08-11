@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
     document.querySelector(".scroll-progress").style.width = scrollPercent + "%";
     
-    const header = document.querySelector(".main-header");
+    const header = document.querySelector(".main-nav-head");
     header.classList.toggle("sticky", window.scrollY > 30);
   });
 
