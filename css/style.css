@@ -90,30 +90,79 @@ header {
 }
 
 /* ======================================
-   Partners/Clients Section - Continuous Marquee
+   Partners/Clients Section - New Design
 ====================================== */
 .partners-section {
-  padding: 80px 20px;
-  background: #f4f4f4;
+  padding: 100px 20px;
+  background-color: #4b1b8b; /* Dark purple background */
   text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.partners-section::before,
+.partners-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 100px; /* Wave height */
+  background: #ee0979; /* Pink wave color */
+}
+
+.partners-section::before {
+  top: 0;
+  transform: skewY(-2deg) scaleX(2);
+  transform-origin: top left;
+}
+
+.partners-section::after {
+  bottom: 0;
+  transform: skewY(2deg) scaleX(2);
+  transform-origin: bottom right;
+}
+
+.partners-section .container {
+  position: relative; /* To keep content above the waves */
+  z-index: 2;
 }
 
 .partners-section .section-title {
-  color: #333;
+  color: #fff; /* White text for contrast */
   margin-bottom: 50px;
 }
 
 .marquee-container {
+  position: relative;
   overflow: hidden;
   white-space: nowrap;
-  position: relative;
   width: 100%;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 150px;
+  height: 100%;
+  z-index: 1;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #4b1b8b 0%, rgba(75, 27, 139, 0) 100%);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #4b1b8b 0%, rgba(75, 27, 139, 0) 100%);
 }
 
 .marquee-content {
   display: inline-block;
   animation: marquee-scroll 40s linear infinite;
-  padding: 0 20px; /* Add some space between the ends */
+  padding: 0 20px;
 }
 
 .marquee-content img {
@@ -121,13 +170,13 @@ header {
   max-width: 150px;
   margin: 0 40px;
   display: inline-block;
-  filter: grayscale(100%) opacity(0.7);
+  filter: grayscale(100%) brightness(150%) opacity(0.8);
   transition: all 0.3s ease;
   vertical-align: middle;
 }
 
 .marquee-content img:hover {
-  filter: grayscale(0%) opacity(1);
+  filter: grayscale(0%) brightness(100%) opacity(1);
   transform: scale(1.05);
 }
 
@@ -148,7 +197,7 @@ header {
   }
   
   .marquee-content {
-    animation-duration: 25s; /* Faster scroll on mobile */
+    animation-duration: 25s;
   }
 }
 
