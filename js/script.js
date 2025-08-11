@@ -351,8 +351,10 @@ document.addEventListener('DOMContentLoaded', function() {
       link.style.transform = 'translateX(0)';
     });
   });
-});
 
+  // --- 13. Partners Marquee Animation ---
+  initPartnersMarquee();
+});
 
 // --- Global Functions (outside DOMContentLoaded) ---
 
@@ -583,6 +585,3 @@ function initPartnersMarquee() {
 
   updateScroll();
 }
-
-// Call the function on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', initPartnersMarquee);
