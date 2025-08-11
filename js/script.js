@@ -473,32 +473,45 @@ function animateCounter(elementId, target, duration) {
   requestAnimationFrame(updateCounter);
 }
 
-// Scroll Progress Bar + Sticky Navbar
-window.addEventListener("scroll", () => {
-  let scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-  document.querySelector(".scroll-progress").style.width = scrollPercent + "%";
+// Improved JavaScript
+document.addEventListener('DOMContentLoaded', function() {
+  // Scroll Progress + Sticky Nav
+  window.addEventListener("scroll", () => {
+    // Progress bar
+    let scrollPercent = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+    document.querySelector(".scroll-progress").style.width = scrollPercent + "%";
+    
+    // Sticky header
+    const header = document.querySelector(".main-header");
+    header.classList.toggle("sticky", window.scrollY > 50);
+  });
 
-  const header = document.querySelector(".main-header");
-  if (window.scrollY > 50) {
-    header.classList.add("sticky");
-  } else {
-    header.classList.remove("sticky");
-  }
-});
+  // Mobile Menu Toggle
+  const hamburger = document.querySelector(".hamburger");
+  const mobileMenu = document.querySelector(".mobile-menu");
+  const body = document.body;
 
-// Mobile Menu Toggle
-const hamburger = document.querySelector(".hamburger");
-const mobileMenu = document.querySelector(".mobile-menu");
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    mobileMenu.classList.toggle("show");
+    body.classList.toggle("no-scroll");
+  });
 
-hamburger.addEventListener("click", () => {
-  hamburger.classList.toggle("active");
-  mobileMenu.classList.toggle("show");
-});
+  // Close menu when clicking on links
+  document.querySelectorAll(".mobile-menu a").forEach(link => {
+    link.addEventListener("click", () => {
+      hamburger.classList.remove("active");
+      mobileMenu.classList.remove("show");
+      body.classList.remove("no-scroll");
+    });
+  });
 
-// Close menu on link click
-document.querySelectorAll(".mobile-menu a").forEach(link => {
-  link.addEventListener("click", () => {
-    mobileMenu.classList.remove("show");
-    hamburger.classList.remove("active");
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !hamburger.contains(e.target)) {
+      hamburger.classList.remove("active");
+      mobileMenu.classList.remove("show");
+      body.classList.remove("no-scroll");
+    }
   });
 });
